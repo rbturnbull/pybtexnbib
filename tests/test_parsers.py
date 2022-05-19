@@ -81,7 +81,7 @@ class EmptyDataTest(ParserTest, TestCase):
     correct_result = BibliographyData()
 
 
-class TestSingleJournal(ParserTest, TestCase):
+class TestMarcelis(ParserTest, TestCase):
     input_string = """
         PMID- 35503723
         OWN - NLM
@@ -192,6 +192,118 @@ class TestSingleJournal(ParserTest, TestCase):
 
   preamble=[])
 
+class TestTiara(ParserTest, TestCase):
+    input_string = """
+        PMID- 34570171
+        OWN - NLM
+        STAT- Publisher
+        LR  - 20220107
+        IS  - 1367-4811 (Electronic)
+        IS  - 1367-4803 (Print)
+        IS  - 1367-4803 (Linking)
+        VI  - 38
+        IP  - 2
+        DP  - 2021 Sep 27
+        TI  - Tiara: Deep learning-based classification system for eukaryotic sequences.
+        PG  - 344-50
+        LID - btab672 [pii]
+        LID - 10.1093/bioinformatics/btab672 [doi]
+        AB  - MOTIVATION: With a large number of metagenomic datasets becoming available, 
+            eukaryotic metagenomics emerged as a new challenge. The proper classification of 
+            eukaryotic nuclear and organellar genomes is an essential step towards a better 
+            understanding of eukaryotic diversity. RESULTS: We developed Tiara, a 
+            deep-learning-based approach for the identification of eukaryotic sequences in 
+            the metagenomic datasets. Its two-step classification process enables the 
+            classification of nuclear and organellar eukaryotic fractions and subsequently 
+            divides organellar sequences into plastidial and mitochondrial. Using the test 
+            dataset, we have shown that Tiara performed similarly to EukRep for prokaryotes 
+            classification and outperformed it for eukaryotes classification with lower 
+            calculation time. In the tests on the real data, Tiara performed better than 
+            EukRep in analysing the small dataset representing eukaryotic cell microbiome and 
+            large dataset from the pelagic zone of oceans. Tiara is also the only available 
+            tool correctly classifying organellar sequences, which was confirmed by the 
+            recovery of nearly complete plastid and mitochondrial genomes from the test data 
+            and real metagenomic data. AVAILABILITY: Tiara is implemented in python 3.8, 
+            available at https://github.com/ibe-uw/tiara and tested on Unix-based systems. It 
+            is released under an open-source MIT license and documentation is available at 
+            https://ibe-uw.github.io/tiara. Version 1.0.1 of Tiara has been used for all 
+            benchmarks. SUPPLEMENTARY INFORMATION: Supplementary data are available at 
+            Bioinformatics online.
+        CI  - © The Author(s) 2021. Published by Oxford University Press.
+        FAU - Karlicki, Michał
+        AU  - Karlicki M
+        AD  - Institute of Evolutionary Biology, Faculty of Biology, Biological and Chemical 
+            Research Centre, University of Warsaw, ul. Żwirki i Wigury 101, Warszawa, 02-089, 
+            Poland.
+        FAU - Antonowicz, Stanisław
+        AU  - Antonowicz S
+        AD  - Institute of Evolutionary Biology, Faculty of Biology, Biological and Chemical 
+            Research Centre, University of Warsaw, ul. Żwirki i Wigury 101, Warszawa, 02-089, 
+            Poland.
+        FAU - Karnkowska, Anna
+        AU  - Karnkowska A
+        AD  - Institute of Evolutionary Biology, Faculty of Biology, Biological and Chemical 
+            Research Centre, University of Warsaw, ul. Żwirki i Wigury 101, Warszawa, 02-089, 
+            Poland.
+        LA  - eng
+        PT  - Journal Article
+        DEP - 20210927
+        TA  - Bioinformatics
+        JT  - Bioinformatics (Oxford, England)
+        JID - 9808944
+        SB  - IM
+        PMC - PMC8722755
+        EDAT- 2021/09/28 06:00
+        MHDA- 2021/09/28 06:00
+        CRDT- 2021/09/27 12:26
+        PHST- 2021/03/05 00:00 [received]
+        PHST- 2021/08/02 00:00 [revised]
+        PHST- 2021/09/21 00:00 [accepted]
+        PHST- 2021/09/27 12:26 [entrez]
+        PHST- 2021/09/28 06:00 [pubmed]
+        PHST- 2021/09/28 06:00 [medline]
+        AID - 6375939 [pii]
+        AID - btab672 [pii]
+        AID - 10.1093/bioinformatics/btab672 [doi]
+        PST - aheadofprint
+        SO  - Bioinformatics. 2021 Sep 27;38(2):344-50. doi: 10.1093/bioinformatics/btab672.
+    """    
+    correct_result = BibliographyData(
+  entries=OrderedCaseInsensitiveDict([
+    ('Karlicki', Entry('article',
+      fields=[
+        ('type', 'Journal Article'), 
+        ('title', 'Tiara: Deep learning-based classification system for eukaryotic sequences.'), 
+        ('date', '2021 Sep 27'), 
+        ('volume', '38'), 
+        ('pages', '344-50'), 
+        ('issn', '1367-4811 (Electronic); 1367-4803 (Print); 1367-4803 (Linking)'), 
+        ('abstract', 'MOTIVATION: With a large number of metagenomic datasets becoming available,eukaryotic metagenomics emerged as a new challenge. The proper classification ofeukaryotic nuclear and organellar genomes is an essential step towards a betterunderstanding of eukaryotic diversity. RESULTS: We developed Tiara, adeep-learning-based approach for the identification of eukaryotic sequences inthe metagenomic datasets. Its two-step classification process enables theclassification of nuclear and organellar eukaryotic fractions and subsequentlydivides organellar sequences into plastidial and mitochondrial. Using the testdataset, we have shown that Tiara performed similarly to EukRep for prokaryotesclassification and outperformed it for eukaryotes classification with lowercalculation time. In the tests on the real data, Tiara performed better thanEukRep in analysing the small dataset representing eukaryotic cell microbiome andlarge dataset from the pelagic zone of oceans. Tiara is also the only availabletool correctly classifying organellar sequences, which was confirmed by therecovery of nearly complete plastid and mitochondrial genomes from the test dataand real metagenomic data. AVAILABILITY: Tiara is implemented in python 3.8,available at https://github.com/ibe-uw/tiara and tested on Unix-based systems. Itis released under an open-source MIT license and documentation is available athttps://ibe-uw.github.io/tiara. Version 1.0.1 of Tiara has been used for allbenchmarks. SUPPLEMENTARY INFORMATION: Supplementary data are available atBioinformatics online.'), 
+        ('doi', '10.1093/bioinformatics/btab672'), 
+        ('PMID', '34570171'), 
+        ('OWN', 'NLM'), 
+        ('STAT', 'Publisher'), 
+        ('LR', '20220107'), 
+        ('IP', '2'), 
+        ('LID', 'btab672 [pii]; 10.1093/bioinformatics/btab672 [doi]'), 
+        ('CI', '© The Author(s) 2021. Published by Oxford University Press.'), 
+        ('AU', 'Karlicki M; Antonowicz S; Karnkowska A'), 
+        ('AD', 'Institute of Evolutionary Biology, Faculty of Biology, Biological and ChemicalResearch Centre, University of Warsaw, ul. Żwirki i Wigury 101, Warszawa, 02-089,Poland.; Institute of Evolutionary Biology, Faculty of Biology, Biological and ChemicalResearch Centre, University of Warsaw, ul. Żwirki i Wigury 101, Warszawa, 02-089,Poland.; Institute of Evolutionary Biology, Faculty of Biology, Biological and ChemicalResearch Centre, University of Warsaw, ul. Żwirki i Wigury 101, Warszawa, 02-089,Poland.'), ('LA', 'eng'), 
+        ('DEP', '20210927'), ('TA', 'Bioinformatics'), 
+        ('JT', 'Bioinformatics (Oxford, England)'), 
+        ('JID', '9808944'), 
+        ('SB', 'IM'), 
+        ('PMC', 'PMC8722755'), 
+        ('EDAT', '2021/09/28 06:00'), 
+        ('MHDA', '2021/09/28 06:00'), 
+        ('CRDT', '2021/09/27 12:26'), 
+        ('PHST', '2021/03/05 00:00 [received]; 2021/08/02 00:00 [revised]; 2021/09/21 00:00 [accepted]; 2021/09/27 12:26 [entrez]; 2021/09/28 06:00 [pubmed]; 2021/09/28 06:00 [medline]'), 
+        ('PST', 'aheadofprint'), 
+        ('SO', 'Bioinformatics. 2021 Sep 27;38(2):344-50. doi: 10.1093/bioinformatics/btab672.'), 
+        ('AID', '6375939 [pii]; btab672 [pii]')],
+      persons=OrderedCaseInsensitiveDict([('author', [Person('Karlicki, Michał'), Person('Antonowicz, Stanisław'), Person('Karnkowska, Anna')])])))]),
+
+  preamble=[])
 
 class TestSingleBookChapter(ParserTest, TestCase):
     input_string = """
