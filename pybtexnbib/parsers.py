@@ -5,6 +5,7 @@ from pathlib import Path
 from pybtex.database.input import BaseParser
 from pybtex.database import Entry, Person
 import csv
+from warnings import warn
 
 data_dir = Path(__file__).parent/"data"
 
@@ -47,8 +48,6 @@ class NBIBParser(BaseParser):
 
     def process_entry(self, entry_text):
         # Read file into list and merge multi-line entries
-        
-
         nbib_fields = []
         for line in entry_text.split('\n'):
             m = re.match(r"^([A-Z]{2,4})\s*-\s*(.*)$", line.strip())
@@ -60,9 +59,10 @@ class NBIBParser(BaseParser):
                 # If the line doesn't match the pattern then append the text to the previous field
                 nbib_fields[-1].value += line.strip()
             else:
+                warn(f"First line of NBIB file '{line}' is invalid.")
                 continue
 
-        # Parse nbib_fields
+        # Parse nbib fields
         nbib_dict = defaultdict(list)
         for field in nbib_fields:
             nbib_dict[field.code].append(field.value)
@@ -79,7 +79,8 @@ class NBIBParser(BaseParser):
 
         # Create Entry object
         entry = Entry(bibtex_type)
-        entry.fields["type"] = nbib_publication_description
+        if nbib_publication_description:
+            entry.fields["type"] = nbib_publication_description
         
         # Read People
         def add_person(code, role):

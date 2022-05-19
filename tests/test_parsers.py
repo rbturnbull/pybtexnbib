@@ -123,7 +123,7 @@ class EmptyDataTest(ParserTest, TestCase):
 
 class InvalidInitialLineTest(ParserTest, TestCase):
     input_string = """
-    # Invalid first line
+    Invalid first line
     TI  - My Title
     DP  - 2022 
     """
@@ -134,7 +134,7 @@ class InvalidInitialLineTest(ParserTest, TestCase):
                     'My.Title2022',
                     Entry(
                         'misc',
-                        fields=[('type', ''), ('title', 'My Title'), ('date', '2022'), ('year', '2022')],
+                        fields=[('title', 'My Title'), ('date', '2022'), ('year', '2022')],
                         persons=OrderedCaseInsensitiveDict([]),
                     ),
                 )
@@ -142,6 +142,47 @@ class InvalidInitialLineTest(ParserTest, TestCase):
         ),
         preamble=[],
     )
+
+
+class InvalidInitialLineTest(ParserTest, TestCase):
+    input_string = """
+    Invalid first line
+    TI  - My Title
+    DP  - 2022 
+    """
+    correct_result = BibliographyData(
+        entries=OrderedCaseInsensitiveDict(
+            [
+                (
+                    'My.Title2022',
+                    Entry(
+                        'misc',
+                        fields=[('title', 'My Title'), ('date', '2022'), ('year', '2022')],
+                        persons=OrderedCaseInsensitiveDict([]),
+                    ),
+                )
+            ]
+        ),
+        preamble=[],
+    )
+
+
+class GuidelineTest(ParserTest, TestCase):
+    input_string = """
+    Invalid first line
+    PT  - Guideline
+    DP  - 2020 
+    """
+    correct_result = BibliographyData(
+  entries=OrderedCaseInsensitiveDict([
+    ('Unknown2020', Entry('misc',
+      fields=[
+        ('type', 'Guideline'), 
+        ('date', '2020'), 
+        ('year', '2020')],
+      persons=OrderedCaseInsensitiveDict([])))]),
+
+  preamble=[])
 
 
 class TestMarcelis(ParserTest, TestCase):
