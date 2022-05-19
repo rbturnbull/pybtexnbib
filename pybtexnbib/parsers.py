@@ -102,8 +102,6 @@ class NBIBParser(BaseParser):
                     entry.fields[bibtex_field] = value
 
         add_field("TI", "title")
-        if "title" not in entry.fields:
-            add_field("T1", "title")
         add_field("JT", "journal")
         add_field("JTI", "shortjournal")
         add_field("DP", "date")
@@ -123,7 +121,7 @@ class NBIBParser(BaseParser):
 
         # Read year from date field if possible
         if "date" in entry.fields:
-            m = re.match(r"^(\d{4})\s+", entry.fields['date'])
+            m = re.match(r"^(\d{4})($|\D)", entry.fields['date'])
             if m:
                 entry.fields['year'] = m.group(1)
 

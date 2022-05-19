@@ -21,23 +21,24 @@ marcelis = BibliographyData(
     entries=OrderedCaseInsensitiveDict(
         [
             (
-                'Marcelis',
+                'Marcelis1993',
                 Entry(
                     'incollection',
                     fields=[
                         ('type', 'Review; Book Chapter'),
                         ('title', 'Feingold Syndrome 1.'),
+                        ('date', '1993'),
                         ('booktitle', 'GeneReviews(®)'),
                         ('publisher', 'University of Washington, Seattle'),
                         (
                             'keywords',
                             'Oculodigitoesophagoduodenal Syndrome | ODED Syndrome | Oculodigitoesophagoduodenal Syndrome | ODED Syndrome | N-myc proto-oncogene protein | MYCN | Feingold Syndrome 1',
                         ),
-                        ('date', '1993'),
                         (
                             'abstract',
                             'CLINICAL CHARACTERISTICS: Feingold syndrome 1 (referred to as FS1 in thisGeneReview) is characterized by digital anomalies (shortening of the 2nd and 5thmiddle phalanx of the hand, clinodactyly of the 5th finger, syndactyly of toes2-3 and/or 4-5, thumb hypoplasia), microcephaly, facial dysmorphism (shortpalpebral fissures and micrognathia), gastrointestinal atresias (primarilyesophageal and/or duodenal), and mild-to-moderate learning disability.DIAGNOSIS/TESTING: The diagnosis of FS1 is established in a proband withsuggestive clinical findings and a heterozygous pathogenic variant in MYCNidentified by molecular genetic testing. MANAGEMENT: Treatment of manifestations:Gastrointestinal atresia is treated surgically. Mild-to-moderate learningdisabilities are treated in the usual manner. GENETIC COUNSELING: FS1 isinherited in an autosomal dominant manner. Approximately 60% of individuals withFeingold syndrome 1 have an affected parent; the proportion of FS1 caused by a denovo MYCN pathogenic variant is unknown. Each child of an individual with FS1 hasa 50% chance of inheriting the MYCN pathogenic variant. When the MYCN pathogenicvariant has been identified in an affected family member, prenatal andpreimplantation genetic testing are possible.',
                         ),
+                        ('year', '1993'),
                         ('PMID', '20301770'),
                         ('STAT', 'Publisher'),
                         ('DRDT', '20190404'),
@@ -118,6 +119,29 @@ class ParserTest(object):
 class EmptyDataTest(ParserTest, TestCase):
     input_string = ""
     correct_result = BibliographyData()
+
+
+class InvalidInitialLineTest(ParserTest, TestCase):
+    input_string = """
+    # Invalid first line
+    TI  - My Title
+    DP  - 2022 
+    """
+    correct_result = BibliographyData(
+        entries=OrderedCaseInsensitiveDict(
+            [
+                (
+                    'My.Title2022',
+                    Entry(
+                        'misc',
+                        fields=[('type', ''), ('title', 'My Title'), ('date', '2022'), ('year', '2022')],
+                        persons=OrderedCaseInsensitiveDict([]),
+                    ),
+                )
+            ]
+        ),
+        preamble=[],
+    )
 
 
 class TestMarcelis(ParserTest, TestCase):

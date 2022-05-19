@@ -10,7 +10,7 @@ pybtexnbib
     :target: https://github.com/rbturnbull/pybtexnbib/actions
     
 .. |coverage badge| image:: https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/rbturnbull/e93cbe3d6bef10cf72db901d962719ba/raw/coverage-badge.json
-    :target: https://rbturnbull.github.io/pybtexnbib/coverage/
+    :target: https://rbturnbull.github.io/pybtexnbib/
 
 .. |black badge| image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/psf/black
