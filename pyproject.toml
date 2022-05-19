@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "pybtexnbib"
+version = "0.1.0"
+description = "A pybtex plugin for inputting NBIB files"
+authors = ["Robert Turnbull <robert.turnbull@unimelb.edu.au>"]
+license = "Apache-2.0"
+readme = "README.rst"
+
+[tool.poetry.dependencies]
+python = "^3.7.1"
+pybtex = "^0.24.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.1.2"
+black = "^22.3.0"
+coverage = "^6.3.3"
+
+[tool.black]
+line-length = 120
+skip_string_normalization = true
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+testpaths = [
+    "tests",
+]
+
+[tool.poetry.plugins."pybtex.database.input"]
+"nbib" = "pybtexnbib:NBIBParser"
+
+[tool.poetry.plugins."pybtex.database.input.suffixes"]
+".nbib" = "pybtexnbib:NBIBParser"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
