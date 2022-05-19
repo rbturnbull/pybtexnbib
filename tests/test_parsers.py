@@ -18,32 +18,71 @@ class _TestParser(NBIBParser):
 
 
 marcelis = BibliographyData(
-  entries=OrderedCaseInsensitiveDict([
-    ('Marcelis', Entry('incollection',
-      fields=[
-        ('type', 'Review; Book Chapter'), 
-        ('title', 'Feingold Syndrome 1.'), 
-        ('booktitle', 'GeneReviews(®)'), 
-        ('publisher', 'University of Washington, Seattle'), 
-        ('keywords', 'Oculodigitoesophagoduodenal Syndrome | ODED Syndrome | Oculodigitoesophagoduodenal Syndrome | ODED Syndrome | N-myc proto-oncogene protein | MYCN | Feingold Syndrome 1'), 
-        ('date', '1993'), 
-        ('abstract', 'CLINICAL CHARACTERISTICS: Feingold syndrome 1 (referred to as FS1 in thisGeneReview) is characterized by digital anomalies (shortening of the 2nd and 5thmiddle phalanx of the hand, clinodactyly of the 5th finger, syndactyly of toes2-3 and/or 4-5, thumb hypoplasia), microcephaly, facial dysmorphism (shortpalpebral fissures and micrognathia), gastrointestinal atresias (primarilyesophageal and/or duodenal), and mild-to-moderate learning disability.DIAGNOSIS/TESTING: The diagnosis of FS1 is established in a proband withsuggestive clinical findings and a heterozygous pathogenic variant in MYCNidentified by molecular genetic testing. MANAGEMENT: Treatment of manifestations:Gastrointestinal atresia is treated surgically. Mild-to-moderate learningdisabilities are treated in the usual manner. GENETIC COUNSELING: FS1 isinherited in an autosomal dominant manner. Approximately 60% of individuals withFeingold syndrome 1 have an affected parent; the proportion of FS1 caused by a denovo MYCN pathogenic variant is unknown. Each child of an individual with FS1 hasa 50% chance of inheriting the MYCN pathogenic variant. When the MYCN pathogenicvariant has been identified in an affected family member, prenatal andpreimplantation genetic testing are possible.'), 
-        ('PMID', '20301770'), 
-        ('STAT', 'Publisher'), 
-        ('DRDT', '20190404'), 
-        ('CTDT', '20090630'), 
-        ('CI', 'Copyright © 1993-2022, University of Washington, Seattle. GeneReviews is aregistered trademark of the University of Washington, Seattle. All rightsreserved.'), ('ED', 'Adam MP; Ardinger HH; Pagon RA; Wallace SE; Bean LJH; Gripp KW; Mirzaa GM; Amemiya A'), 
-        ('AU', 'Marcelis CLM; de Brouwer APM'), 
-        ('AD', 'Department of Human Genetics, Radboud University Nijmegen Medical Center,Nijmegen, The Netherlands; Assistant Professor, Department of Human Genetics, Radboud University NijmegenMedical Center, Nijmegen, The Netherlands'), 
-        ('LA', 'eng'), 
-        ('PL', 'Seattle (WA)'), 
-        ('OTO', 'NLM'), 
-        ('EDAT', '2019/04/04 00:00'), 
-        ('CRDT', '2019/04/04 00:00'), 
-        ('AID', 'NBK7050 [bookaccession]')],
-      persons=OrderedCaseInsensitiveDict([('author', [Person('Marcelis, Carlo LM'), Person('de Brouwer, Arjan PM')]), ('editor', [Person('Adam, Margaret P'), Person('Ardinger, Holly H'), Person('Pagon, Roberta A'), Person('Wallace, Stephanie E'), Person('Bean, Lora JH'), Person('Gripp, Karen W'), Person('Mirzaa, Ghayda M'), Person('Amemiya, Anne')])])))]),
-
-  preamble=[])
+    entries=OrderedCaseInsensitiveDict(
+        [
+            (
+                'Marcelis',
+                Entry(
+                    'incollection',
+                    fields=[
+                        ('type', 'Review; Book Chapter'),
+                        ('title', 'Feingold Syndrome 1.'),
+                        ('booktitle', 'GeneReviews(®)'),
+                        ('publisher', 'University of Washington, Seattle'),
+                        (
+                            'keywords',
+                            'Oculodigitoesophagoduodenal Syndrome | ODED Syndrome | Oculodigitoesophagoduodenal Syndrome | ODED Syndrome | N-myc proto-oncogene protein | MYCN | Feingold Syndrome 1',
+                        ),
+                        ('date', '1993'),
+                        (
+                            'abstract',
+                            'CLINICAL CHARACTERISTICS: Feingold syndrome 1 (referred to as FS1 in thisGeneReview) is characterized by digital anomalies (shortening of the 2nd and 5thmiddle phalanx of the hand, clinodactyly of the 5th finger, syndactyly of toes2-3 and/or 4-5, thumb hypoplasia), microcephaly, facial dysmorphism (shortpalpebral fissures and micrognathia), gastrointestinal atresias (primarilyesophageal and/or duodenal), and mild-to-moderate learning disability.DIAGNOSIS/TESTING: The diagnosis of FS1 is established in a proband withsuggestive clinical findings and a heterozygous pathogenic variant in MYCNidentified by molecular genetic testing. MANAGEMENT: Treatment of manifestations:Gastrointestinal atresia is treated surgically. Mild-to-moderate learningdisabilities are treated in the usual manner. GENETIC COUNSELING: FS1 isinherited in an autosomal dominant manner. Approximately 60% of individuals withFeingold syndrome 1 have an affected parent; the proportion of FS1 caused by a denovo MYCN pathogenic variant is unknown. Each child of an individual with FS1 hasa 50% chance of inheriting the MYCN pathogenic variant. When the MYCN pathogenicvariant has been identified in an affected family member, prenatal andpreimplantation genetic testing are possible.',
+                        ),
+                        ('PMID', '20301770'),
+                        ('STAT', 'Publisher'),
+                        ('DRDT', '20190404'),
+                        ('CTDT', '20090630'),
+                        (
+                            'CI',
+                            'Copyright © 1993-2022, University of Washington, Seattle. GeneReviews is aregistered trademark of the University of Washington, Seattle. All rightsreserved.',
+                        ),
+                        ('ED', 'Adam MP; Ardinger HH; Pagon RA; Wallace SE; Bean LJH; Gripp KW; Mirzaa GM; Amemiya A'),
+                        ('AU', 'Marcelis CLM; de Brouwer APM'),
+                        (
+                            'AD',
+                            'Department of Human Genetics, Radboud University Nijmegen Medical Center,Nijmegen, The Netherlands; Assistant Professor, Department of Human Genetics, Radboud University NijmegenMedical Center, Nijmegen, The Netherlands',
+                        ),
+                        ('LA', 'eng'),
+                        ('PL', 'Seattle (WA)'),
+                        ('OTO', 'NLM'),
+                        ('EDAT', '2019/04/04 00:00'),
+                        ('CRDT', '2019/04/04 00:00'),
+                        ('AID', 'NBK7050 [bookaccession]'),
+                    ],
+                    persons=OrderedCaseInsensitiveDict(
+                        [
+                            ('author', [Person('Marcelis, Carlo LM'), Person('de Brouwer, Arjan PM')]),
+                            (
+                                'editor',
+                                [
+                                    Person('Adam, Margaret P'),
+                                    Person('Ardinger, Holly H'),
+                                    Person('Pagon, Roberta A'),
+                                    Person('Wallace, Stephanie E'),
+                                    Person('Bean, Lora JH'),
+                                    Person('Gripp, Karen W'),
+                                    Person('Mirzaa, Ghayda M'),
+                                    Person('Amemiya, Anne'),
+                                ],
+                            ),
+                        ]
+                    ),
+                ),
+            )
+        ]
+    ),
+    preamble=[],
+)
 
 
 class ParserTest(object):
@@ -153,44 +192,76 @@ class TestMarcelis(ParserTest, TestCase):
         AID - 10.1099/mgen.0.000823 [doi]
         PST - ppublish
         SO  - Microb Genom. 2022 May;8(5). doi: 10.1099/mgen.0.000823.
-    """  
+    """
     correct_result = BibliographyData(
-  entries=OrderedCaseInsensitiveDict([
-    ('Pronk', Entry('article',
-      fields=[
-        ('type', 'Journal Article'), 
-        ('title', 'Whokaryote: distinguishing eukaryotic and prokaryotic contigs in metagenomesbased on gene structure.'), 
-        ('date', '2022 May'), 
-        ('volume', '8'), 
-        ('keywords', 'biosynthetic gene cluster | gene structure | machine learning | metagenomics | taxonomy'), 
-        ('issn', '2057-5858 (Electronic); 2057-5858 (Linking)'), 
-        ('abstract', 'Metagenomics has become a prominent technology to study the functional potentialof all organisms in a microbial community. Most studies focus on the bacterialcontent of these communities, while ignoring eukaryotic microbes. Indeed, manymetagenomics analysis pipelines silently assume that all contigs in a metagenomeare prokaryotic, likely resulting in less accurate annotation of eukaryotes inmetagenomes. Early detection of eukaryotic contigs allows for eukaryote-specificgene prediction and functional annotation. Here, we developed a classifier thatdistinguishes eukaryotic from prokaryotic contigs based on foundationaldifferences between these taxa in terms of gene structure. We first developedWhokaryote, a random forest classifier that uses intergenic distance, genedensity and gene length as the most important features. We show that, with anestimated recall, precision and accuracy of 94, 96 and 95\u200a%, respectively, thisclassifier with features grounded in biology can perform almost as well as theclassifiers EukRep and Tiara, which use k-mer frequencies as features. Byretraining our classifier with Tiara predictions as an additional feature, theweaknesses of both types of classifiers are compensated; the result isWhokaryote+Tiara, an enhanced classifier that outperforms all individualclassifiers, with an F1 score of 0.99 for both eukaryotes and prokaryotes, whilestill being fast. In a reanalysis of metagenome data from a disease-suppressiveplant endospheric microbial community, we show how using Whokaryote+Tiara\u2009toselect contigs for eukaryotic gene prediction facilitates the discovery ofseveral biosynthetic gene clusters that were missed in the original study.Whokaryote (+Tiara) is wrapped in an easily installable package and is freelyavailable from https://github.com/LottePronk/whokaryote.'), 
-        ('doi', '10.1099/mgen.0.000823'), 
-        ('PMID', '35503723'), 
-        ('OWN', 'NLM'), 
-        (
-        'STAT', 'MEDLINE'), 
-        ('DCOM', '20220505'), 
-        ('LR', '20220505'), 
-        ('IP', '5'), 
-        ('LID', '10.1099/mgen.0.000823 [doi]'), 
-        ('AU', 'Pronk LJU; Medema MH'), 
-        ('AD', 'Bioinformatics Group, Wageningen University, Wageningen, The Netherlands.; Bioinformatics Group, Wageningen University, Wageningen, The Netherlands.'), 
-        ('LA', 'eng'), 
-        ('PL', 'England'), ('TA', 'Microb Genom'), 
-        ('JT', 'Microbial genomics'), 
-        ('JID', '101671820'), 
-        ('SB', 'IM'), ('MH', 'Bacteria/genetics; Eukaryota/genetics; *Metagenome; Metagenomics/methods; *Microbiota/genetics'), 
-        ('OTO', 'NOTNLM'), 
-        ('EDAT', '2022/05/04 06:00'), 
-        ('MHDA', '2022/05/06 06:00'), 
-        ('CRDT', '2022/05/03 13:00'), 
-        ('PHST', '2022/05/03 13:00 [entrez]; 2022/05/04 06:00 [pubmed]; 2022/05/06 06:00 [medline]'), 
-        ('PST', 'ppublish'), 
-        ('SO', 'Microb Genom. 2022 May;8(5). doi: 10.1099/mgen.0.000823.')],
-      persons=OrderedCaseInsensitiveDict([('author', [Person('Pronk, Lotte J U'), Person('Medema, Marnix H')])])))]),
+        entries=OrderedCaseInsensitiveDict(
+            [
+                (
+                    'Pronk2022',
+                    Entry(
+                        'article',
+                        fields=[
+                            ('type', 'Journal Article'),
+                            (
+                                'title',
+                                'Whokaryote: distinguishing eukaryotic and prokaryotic contigs in metagenomesbased on gene structure.',
+                            ),
+                            ('journal', 'Microbial genomics'),
+                            ('date', '2022 May'),
+                            ('volume', '8'),
+                            (
+                                'keywords',
+                                'biosynthetic gene cluster | gene structure | machine learning | metagenomics | taxonomy',
+                            ),
+                            ('issn', '2057-5858 (Electronic); 2057-5858 (Linking)'),
+                            (
+                                'abstract',
+                                'Metagenomics has become a prominent technology to study the functional potentialof all organisms in a microbial community. Most studies focus on the bacterialcontent of these communities, while ignoring eukaryotic microbes. Indeed, manymetagenomics analysis pipelines silently assume that all contigs in a metagenomeare prokaryotic, likely resulting in less accurate annotation of eukaryotes inmetagenomes. Early detection of eukaryotic contigs allows for eukaryote-specificgene prediction and functional annotation. Here, we developed a classifier thatdistinguishes eukaryotic from prokaryotic contigs based on foundationaldifferences between these taxa in terms of gene structure. We first developedWhokaryote, a random forest classifier that uses intergenic distance, genedensity and gene length as the most important features. We show that, with anestimated recall, precision and accuracy of 94, 96 and 95\u200a%, respectively, thisclassifier with features grounded in biology can perform almost as well as theclassifiers EukRep and Tiara, which use k-mer frequencies as features. Byretraining our classifier with Tiara predictions as an additional feature, theweaknesses of both types of classifiers are compensated; the result isWhokaryote+Tiara, an enhanced classifier that outperforms all individualclassifiers, with an F1 score of 0.99 for both eukaryotes and prokaryotes, whilestill being fast. In a reanalysis of metagenome data from a disease-suppressiveplant endospheric microbial community, we show how using Whokaryote+Tiara\u2009toselect contigs for eukaryotic gene prediction facilitates the discovery ofseveral biosynthetic gene clusters that were missed in the original study.Whokaryote (+Tiara) is wrapped in an easily installable package and is freelyavailable from https://github.com/LottePronk/whokaryote.',
+                            ),
+                            ('year', '2022'),
+                            ('doi', '10.1099/mgen.0.000823'),
+                            ('PMID', '35503723'),
+                            ('OWN', 'NLM'),
+                            ('STAT', 'MEDLINE'),
+                            ('DCOM', '20220505'),
+                            ('LR', '20220505'),
+                            ('IP', '5'),
+                            ('LID', '10.1099/mgen.0.000823 [doi]'),
+                            ('AU', 'Pronk LJU; Medema MH'),
+                            (
+                                'AD',
+                                'Bioinformatics Group, Wageningen University, Wageningen, The Netherlands.; Bioinformatics Group, Wageningen University, Wageningen, The Netherlands.',
+                            ),
+                            ('LA', 'eng'),
+                            ('PL', 'England'),
+                            ('TA', 'Microb Genom'),
+                            ('JID', '101671820'),
+                            ('SB', 'IM'),
+                            (
+                                'MH',
+                                'Bacteria/genetics; Eukaryota/genetics; *Metagenome; Metagenomics/methods; *Microbiota/genetics',
+                            ),
+                            ('OTO', 'NOTNLM'),
+                            ('EDAT', '2022/05/04 06:00'),
+                            ('MHDA', '2022/05/06 06:00'),
+                            ('CRDT', '2022/05/03 13:00'),
+                            (
+                                'PHST',
+                                '2022/05/03 13:00 [entrez]; 2022/05/04 06:00 [pubmed]; 2022/05/06 06:00 [medline]',
+                            ),
+                            ('PST', 'ppublish'),
+                            ('SO', 'Microb Genom. 2022 May;8(5). doi: 10.1099/mgen.0.000823.'),
+                        ],
+                        persons=OrderedCaseInsensitiveDict(
+                            [('author', [Person('Pronk, Lotte J U'), Person('Medema, Marnix H')])]
+                        ),
+                    ),
+                )
+            ]
+        ),
+        preamble=[],
+    )
 
-  preamble=[])
 
 class TestTiara(ParserTest, TestCase):
     input_string = """
@@ -267,43 +338,76 @@ class TestTiara(ParserTest, TestCase):
         AID - 10.1093/bioinformatics/btab672 [doi]
         PST - aheadofprint
         SO  - Bioinformatics. 2021 Sep 27;38(2):344-50. doi: 10.1093/bioinformatics/btab672.
-    """    
+    """
     correct_result = BibliographyData(
-  entries=OrderedCaseInsensitiveDict([
-    ('Karlicki', Entry('article',
-      fields=[
-        ('type', 'Journal Article'), 
-        ('title', 'Tiara: Deep learning-based classification system for eukaryotic sequences.'), 
-        ('date', '2021 Sep 27'), 
-        ('volume', '38'), 
-        ('pages', '344-50'), 
-        ('issn', '1367-4811 (Electronic); 1367-4803 (Print); 1367-4803 (Linking)'), 
-        ('abstract', 'MOTIVATION: With a large number of metagenomic datasets becoming available,eukaryotic metagenomics emerged as a new challenge. The proper classification ofeukaryotic nuclear and organellar genomes is an essential step towards a betterunderstanding of eukaryotic diversity. RESULTS: We developed Tiara, adeep-learning-based approach for the identification of eukaryotic sequences inthe metagenomic datasets. Its two-step classification process enables theclassification of nuclear and organellar eukaryotic fractions and subsequentlydivides organellar sequences into plastidial and mitochondrial. Using the testdataset, we have shown that Tiara performed similarly to EukRep for prokaryotesclassification and outperformed it for eukaryotes classification with lowercalculation time. In the tests on the real data, Tiara performed better thanEukRep in analysing the small dataset representing eukaryotic cell microbiome andlarge dataset from the pelagic zone of oceans. Tiara is also the only availabletool correctly classifying organellar sequences, which was confirmed by therecovery of nearly complete plastid and mitochondrial genomes from the test dataand real metagenomic data. AVAILABILITY: Tiara is implemented in python 3.8,available at https://github.com/ibe-uw/tiara and tested on Unix-based systems. Itis released under an open-source MIT license and documentation is available athttps://ibe-uw.github.io/tiara. Version 1.0.1 of Tiara has been used for allbenchmarks. SUPPLEMENTARY INFORMATION: Supplementary data are available atBioinformatics online.'), 
-        ('doi', '10.1093/bioinformatics/btab672'), 
-        ('PMID', '34570171'), 
-        ('OWN', 'NLM'), 
-        ('STAT', 'Publisher'), 
-        ('LR', '20220107'), 
-        ('IP', '2'), 
-        ('LID', 'btab672 [pii]; 10.1093/bioinformatics/btab672 [doi]'), 
-        ('CI', '© The Author(s) 2021. Published by Oxford University Press.'), 
-        ('AU', 'Karlicki M; Antonowicz S; Karnkowska A'), 
-        ('AD', 'Institute of Evolutionary Biology, Faculty of Biology, Biological and ChemicalResearch Centre, University of Warsaw, ul. Żwirki i Wigury 101, Warszawa, 02-089,Poland.; Institute of Evolutionary Biology, Faculty of Biology, Biological and ChemicalResearch Centre, University of Warsaw, ul. Żwirki i Wigury 101, Warszawa, 02-089,Poland.; Institute of Evolutionary Biology, Faculty of Biology, Biological and ChemicalResearch Centre, University of Warsaw, ul. Żwirki i Wigury 101, Warszawa, 02-089,Poland.'), ('LA', 'eng'), 
-        ('DEP', '20210927'), ('TA', 'Bioinformatics'), 
-        ('JT', 'Bioinformatics (Oxford, England)'), 
-        ('JID', '9808944'), 
-        ('SB', 'IM'), 
-        ('PMC', 'PMC8722755'), 
-        ('EDAT', '2021/09/28 06:00'), 
-        ('MHDA', '2021/09/28 06:00'), 
-        ('CRDT', '2021/09/27 12:26'), 
-        ('PHST', '2021/03/05 00:00 [received]; 2021/08/02 00:00 [revised]; 2021/09/21 00:00 [accepted]; 2021/09/27 12:26 [entrez]; 2021/09/28 06:00 [pubmed]; 2021/09/28 06:00 [medline]'), 
-        ('PST', 'aheadofprint'), 
-        ('SO', 'Bioinformatics. 2021 Sep 27;38(2):344-50. doi: 10.1093/bioinformatics/btab672.'), 
-        ('AID', '6375939 [pii]; btab672 [pii]')],
-      persons=OrderedCaseInsensitiveDict([('author', [Person('Karlicki, Michał'), Person('Antonowicz, Stanisław'), Person('Karnkowska, Anna')])])))]),
+        entries=OrderedCaseInsensitiveDict(
+            [
+                (
+                    'Karlicki2021',
+                    Entry(
+                        'article',
+                        fields=[
+                            ('type', 'Journal Article'),
+                            ('title', 'Tiara: Deep learning-based classification system for eukaryotic sequences.'),
+                            ('journal', 'Bioinformatics (Oxford, England)'),
+                            ('date', '2021 Sep 27'),
+                            ('volume', '38'),
+                            ('pages', '344-50'),
+                            ('issn', '1367-4811 (Electronic); 1367-4803 (Print); 1367-4803 (Linking)'),
+                            (
+                                'abstract',
+                                'MOTIVATION: With a large number of metagenomic datasets becoming available,eukaryotic metagenomics emerged as a new challenge. The proper classification ofeukaryotic nuclear and organellar genomes is an essential step towards a betterunderstanding of eukaryotic diversity. RESULTS: We developed Tiara, adeep-learning-based approach for the identification of eukaryotic sequences inthe metagenomic datasets. Its two-step classification process enables theclassification of nuclear and organellar eukaryotic fractions and subsequentlydivides organellar sequences into plastidial and mitochondrial. Using the testdataset, we have shown that Tiara performed similarly to EukRep for prokaryotesclassification and outperformed it for eukaryotes classification with lowercalculation time. In the tests on the real data, Tiara performed better thanEukRep in analysing the small dataset representing eukaryotic cell microbiome andlarge dataset from the pelagic zone of oceans. Tiara is also the only availabletool correctly classifying organellar sequences, which was confirmed by therecovery of nearly complete plastid and mitochondrial genomes from the test dataand real metagenomic data. AVAILABILITY: Tiara is implemented in python 3.8,available at https://github.com/ibe-uw/tiara and tested on Unix-based systems. Itis released under an open-source MIT license and documentation is available athttps://ibe-uw.github.io/tiara. Version 1.0.1 of Tiara has been used for allbenchmarks. SUPPLEMENTARY INFORMATION: Supplementary data are available atBioinformatics online.',
+                            ),
+                            ('year', '2021'),
+                            ('doi', '10.1093/bioinformatics/btab672'),
+                            ('PMID', '34570171'),
+                            ('OWN', 'NLM'),
+                            ('STAT', 'Publisher'),
+                            ('LR', '20220107'),
+                            ('IP', '2'),
+                            ('LID', 'btab672 [pii]; 10.1093/bioinformatics/btab672 [doi]'),
+                            ('CI', '© The Author(s) 2021. Published by Oxford University Press.'),
+                            ('AU', 'Karlicki M; Antonowicz S; Karnkowska A'),
+                            (
+                                'AD',
+                                'Institute of Evolutionary Biology, Faculty of Biology, Biological and ChemicalResearch Centre, University of Warsaw, ul. Żwirki i Wigury 101, Warszawa, 02-089,Poland.; Institute of Evolutionary Biology, Faculty of Biology, Biological and ChemicalResearch Centre, University of Warsaw, ul. Żwirki i Wigury 101, Warszawa, 02-089,Poland.; Institute of Evolutionary Biology, Faculty of Biology, Biological and ChemicalResearch Centre, University of Warsaw, ul. Żwirki i Wigury 101, Warszawa, 02-089,Poland.',
+                            ),
+                            ('LA', 'eng'),
+                            ('DEP', '20210927'),
+                            ('TA', 'Bioinformatics'),
+                            ('JID', '9808944'),
+                            ('SB', 'IM'),
+                            ('PMC', 'PMC8722755'),
+                            ('EDAT', '2021/09/28 06:00'),
+                            ('MHDA', '2021/09/28 06:00'),
+                            ('CRDT', '2021/09/27 12:26'),
+                            (
+                                'PHST',
+                                '2021/03/05 00:00 [received]; 2021/08/02 00:00 [revised]; 2021/09/21 00:00 [accepted]; 2021/09/27 12:26 [entrez]; 2021/09/28 06:00 [pubmed]; 2021/09/28 06:00 [medline]',
+                            ),
+                            ('PST', 'aheadofprint'),
+                            ('SO', 'Bioinformatics. 2021 Sep 27;38(2):344-50. doi: 10.1093/bioinformatics/btab672.'),
+                            ('AID', '6375939 [pii]; btab672 [pii]'),
+                        ],
+                        persons=OrderedCaseInsensitiveDict(
+                            [
+                                (
+                                    'author',
+                                    [
+                                        Person('Karlicki, Michał'),
+                                        Person('Antonowicz, Stanisław'),
+                                        Person('Karnkowska, Anna'),
+                                    ],
+                                )
+                            ]
+                        ),
+                    ),
+                )
+            ]
+        ),
+        preamble=[],
+    )
 
-  preamble=[])
 
 class TestSingleBookChapter(ParserTest, TestCase):
     input_string = """
@@ -374,7 +478,7 @@ class TestSingleBookChapter(ParserTest, TestCase):
         EDAT- 2019/04/04 00:00
         CRDT- 2019/04/04 00:00
         AID - NBK7050 [bookaccession]
-    """  
+    """
     correct_result = marcelis
 
 

@@ -104,7 +104,7 @@ class NBIBParser(BaseParser):
         add_field("TI", "title")
         if "title" not in entry.fields:
             add_field("T1", "title")
-        add_field("JO", "journal")
+        add_field("JT", "journal")
         add_field("JTI", "shortjournal")
         add_field("DP", "date")
             
@@ -120,6 +120,12 @@ class NBIBParser(BaseParser):
         add_field("AB", "abstract")
 
         add_field("AB", "abstract")
+
+        # Read year from date field if possible
+        if "date" in entry.fields:
+            m = re.match(r"^(\d{4})\s+", entry.fields['date'])
+            if m:
+                entry.fields['year'] = m.group(1)
 
         # Get DOI
         values = nbib_dict.pop("AID", [])
