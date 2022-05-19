@@ -1,4 +1,5 @@
 import re
+from dataclasses import dataclass
 from collections import defaultdict
 from pathlib import Path
 from pybtex.database.input import BaseParser
@@ -6,6 +7,13 @@ from pybtex.database import Entry, Person
 import csv
 
 data_dir = Path(__file__).parent/"data"
+
+@dataclass
+class NBIBField:
+    """ A field in a NBIB file. """
+    code: str
+    value: str
+
 
 class NBIBParser(BaseParser):
     """
@@ -18,40 +26,60 @@ class NBIBParser(BaseParser):
     default_suffix = '.nbib'
     unicode_io = True
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.nbib_type_to_bibtex = {}
+
+        with open(data_dir/"types.csv") as f:
+            reader = csv.reader(f, delimiter=',')
+            
+            #skip the header
+            next(reader, None)
+
+            for row in reader:
+                nbib_type = row[0]
+                bibtex_type = row[1]
+                self.nbib_type_to_bibtex[nbib_type] = bibtex_type
+
     def parse_stream(self, stream):
         text = stream.read()
         return self.parse_string(text)
 
     def process_entry(self, entry_text):
-        # Read entry into dictionary
-        nbib_dict = defaultdict(list)
+        # Read file into list and merge multi-line entries
+        
+
+        nbib_fields = []
         for line in entry_text.split('\n'):
-            m = re.match(r"^([A-Z0-9]{2})\s*-\s*(.*)$", line.strip())
-            if not m:
+            m = re.match(r"^([A-Z]{2,4})\s*-\s*(.*)$", line.strip())
+            if m:
+                code = m.group(1)
+                value = m.group(2).strip()
+                nbib_fields.append( NBIBField(code=code, value=value) )
+            elif len(nbib_fields) > 0:
+                # If the line doesn't match the pattern then append the text to the previous field
+                nbib_fields[-1].value += line.strip()
+            else:
                 continue
 
-            code = m.group(1)
-            value = m.group(2)
-            
-            nbib_dict[code].append(value)
-        
-        # Read type of entry
-        ris_type = nbib_dict.pop("TY", ["GEN"])
-        ris_type = ris_type[0]
-        ris_description = None
-        if ris_type in self.ris_type_description.values():
-            index = list(self.ris_type_description.values()).index(ris_type)
-            ris_description = ris_type
-            ris_type = list(self.ris_type_description.keys())[index]
-            
-        ris_type = ris_type.upper()
-        if not ris_description:
-            ris_description = self.ris_type_description[ris_type]
+        # Parse nbib_fields
+        nbib_dict = defaultdict(list)
+        for field in nbib_fields:
+            nbib_dict[field.code].append(field.value)
+
+        # Get publication type
+        nbib_publication_types = nbib_dict.pop("PT", [])
+        bibtex_types = {
+            self.nbib_type_to_bibtex[nbib_type] 
+            for nbib_type in nbib_publication_types 
+            if nbib_type in self.nbib_type_to_bibtex
+        }
+        bibtex_type = bibtex_types.pop() if len(bibtex_types) == 1 else "misc"
+        nbib_publication_description = "; ".join(nbib_publication_types)
 
         # Create Entry object
-        bibtex_type = self.ris_type_to_bibtex.get(ris_type, "misc")
         entry = Entry(bibtex_type)
-        entry.fields["type"] = ris_description
+        entry.fields["type"] = nbib_publication_description
         
         # Read People
         def add_person(code, role):
@@ -60,17 +88,12 @@ class NBIBParser(BaseParser):
                 person = Person(name)
                 entry.add_person(person, role)
 
-        add_person("AU", "author")
-        add_person("A1", "author")
-        editor_role = ["ANCIENT", "BLOG", "BOOK", "CHAP", "CLSWK", "COMP", "DATA", "CPAPER", "CONF", "DICT", "EDBOOK", "EBOOK", "ECHAP", "ENCYC", "MAP", "MUSIC", "MULTI", "RPRT", "SER", "UNPB", "ELEC"]
-        add_person("A2", "editor" if ris_type in editor_role else "author")
-        editor_role += ["ADVS", "SLIDE", "SOUND", "VIDEO"]
-        add_person("A3", "editor" if ris_type in editor_role else "author")
-        add_person("A4", "editor" if ris_type in editor_role else "author")        
-        add_person("ED", "editor")        
+        add_person("FAU", "author")
+        add_person("FED", "editor")     
+        # what should be done for AU and ED?   
 
         # Read Other Fields
-        def add_field(code, bibtex_field, delimiter=", "):
+        def add_field(code, bibtex_field, delimiter="; "):
             values = nbib_dict.pop(code, [])
             for value in values:
                 if bibtex_field in entry.fields:
@@ -82,76 +105,36 @@ class NBIBParser(BaseParser):
         if "title" not in entry.fields:
             add_field("T1", "title")
         add_field("JO", "journal")
-
-        bibtex_t2 = None
-        if ris_type in ["ABST","INPR","JFULL","JOUR", "EJOUR"]:
-            bibtex_t2 = "journal"
-        elif ris_type in ["ANCIENT","CHAP", "ECHAP"]:
-            bibtex_t2 = "booktitle"
-        elif ris_type in ["BOOK","CTLG", "CLSWK", "COMP", "DATA", "MPCT", "MAP", "MULTI", "RPRT", "UNPB", "ELEC"]:
-            bibtex_t2 = "series"
-        if bibtex_t2:
-            add_field("T2", bibtex_t2)
+        add_field("JTI", "shortjournal")
+        add_field("DP", "date")
             
-        bibtex_bt = bibtex_t2
-        if ris_type == "BOOK":
-            bibtex_bt = "title"
-        if bibtex_bt:
-            add_field("BT", bibtex_bt)
-
-        bibtex_t3 = None
-        if ris_type in ["BOOK","CTLG", "CLSWK", "COMP", "DATA", "MPCT", "MAP", "MULTI", "RPRT", "UNPB", "ELEC", "ADVS", "SLIDE", "SOUND", "VIDEO", "CHAP", "CONF", "DATA", "EBOOK", "ECHAP", "GOVDOC", "MUSIC", "SER"]:
-            bibtex_t3 = "series"
-        if bibtex_t3:
-            add_field("T3", bibtex_t3)
-            
+        add_field("BTI", "booktitle")
         add_field("PB", "publisher")
         add_field("CY", "address")
-        add_field("IS", "number")
-        add_field("DO", "doi")
-        add_field("VL", "volume")
-        add_field("SP", "pages")
-        add_field("UR", "url")
-        add_field("KW", "keywords", delimiter=" | ")
-        add_field("N1", "note", delimiter=" | ")
-        add_field("N2", "note", delimiter=" | ")
-        add_field("PY", "year")
+        add_field("VI", "volume")
+        add_field("PG", "pages")
+        add_field("OT", "keywords", delimiter=" | ")
+        add_field("GN", "note", delimiter=" | ")
+        add_field("ISBN", "isbn")
+        add_field("IS", "issn")
         add_field("AB", "abstract")
-        if "year" not in entry.fields:
-            add_field("Y1", "year")
 
-        # Read ISBN or ISSN
-        serial_numbers = nbib_dict.pop("SN", [])
-        for serial_number in serial_numbers:
-            sn_digits = re.sub(r"\D","", serial_number)
-            sn_field = "issn" if len(sn_digits) == 8 else "isbn"
-            entry.fields[sn_field] = serial_number
+        add_field("AB", "abstract")
 
-        entry_key = nbib_dict.pop("ID", [None])
-        entry_key = entry_key[0]
-
-        # Check if DA field could be a month
-        dates = nbib_dict.get("DA", [])
-        for date in dates:
-            digital_month = date.isdigit() and (1 <= int(date) <= 12)
-            text_month = date[:3].lower() in ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
-            if digital_month or text_month:
-                entry.fields["month"] = date
-                nbib_dict.pop("DA")
-                
-        end_pages = nbib_dict.pop("EP", [])
-        for end_page in end_pages:
-            if "pages" in entry.fields:
-                entry.fields["pages"] += f"--{end_page}"
+        # Get DOI
+        values = nbib_dict.pop("AID", [])
+        for value in values:
+            if "[doi]" in value:
+                entry.fields["doi"] = value.replace("[doi]", "").strip()
             else:
-                entry.fields["pages"] = end_page
+                nbib_dict["AID"].append(value)
 
-        # Add the remaining fields in the notes
-        nbib_dict.pop("ER", None)
+        # Add the remaining fields with the RIS code as the field name
         for code, values in nbib_dict.items():
-            entry.fields[code] = ", ".join(values)
+            entry.fields[code] = "; ".join(values)
 
-        
+        # Create an entry key if not found
+        entry_key = ""
         if not entry_key:
             people = [x[0] for x in entry.persons.values()]
             if people:
