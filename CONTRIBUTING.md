@@ -2,11 +2,11 @@
 
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
 
-To devlop pybtexris, clone the repo and install the dependencies using [poetry](https://python-poetry.org/):
+To devlop pybtexnbib, clone the repo and install the dependencies using [poetry](https://python-poetry.org/):
 
 ```
-git clone https://github.com/rbturnbull/pybtexris.git
-cd pybtexris
+git clone https://github.com/rbturnbull/pybtexnbib.git
+cd pybtexnbib
 poetry install
 ```
 

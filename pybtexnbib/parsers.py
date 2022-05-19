@@ -2,48 +2,29 @@ import re
 from collections import defaultdict
 from pathlib import Path
 from pybtex.database.input import BaseParser
-from pybtex.database import BibliographyData, Entry, Person
-from pybtex.utils import OrderedCaseInsensitiveDict
+from pybtex.database import Entry, Person
 import csv
 
 data_dir = Path(__file__).parent/"data"
 
 class NBIBParser(BaseParser):
     """
-    Parser for NBIB files.
+    Parser for NBIB/Medline/PubMed citation files.
+
+    For information, see:
+        https://www.nlm.nih.gov/bsd/policy/cit_format.html
+        https://www.nlm.nih.gov/bsd/mms/medlineelements.html
     """
     default_suffix = '.nbib'
     unicode_io = True
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.ris_type_to_bibtex = {}
-        self.ris_type_description = {}
-
-        with open(data_dir/"types.csv") as f:
-            reader = csv.reader(f, delimiter=',')
-            
-            #skip the header
-            next(reader, None)
-            for row in reader:
-                ris_types = row[0]
-                description = row[1]
-                bibtex_type = row[2]
-
-                for ris_type in ris_types.split(", "):
-                    self.ris_type_to_bibtex[ris_type] = bibtex_type
-                    self.ris_type_description[ris_type] = description
 
     def parse_stream(self, stream):
         text = stream.read()
         return self.parse_string(text)
 
     def process_entry(self, entry_text):
-        """
-        https://github.com/aurimasv/translators/wiki/RIS-Tag-Map
-        """
         # Read entry into dictionary
-        ris_dict = defaultdict(list)
+        nbib_dict = defaultdict(list)
         for line in entry_text.split('\n'):
             m = re.match(r"^([A-Z0-9]{2})\s*-\s*(.*)$", line.strip())
             if not m:
@@ -52,10 +33,10 @@ class NBIBParser(BaseParser):
             code = m.group(1)
             value = m.group(2)
             
-            ris_dict[code].append(value)
+            nbib_dict[code].append(value)
         
         # Read type of entry
-        ris_type = ris_dict.pop("TY", ["GEN"])
+        ris_type = nbib_dict.pop("TY", ["GEN"])
         ris_type = ris_type[0]
         ris_description = None
         if ris_type in self.ris_type_description.values():
@@ -74,7 +55,7 @@ class NBIBParser(BaseParser):
         
         # Read People
         def add_person(code, role):
-            names = ris_dict.pop(code, [])
+            names = nbib_dict.pop(code, [])
             for name in names:
                 person = Person(name)
                 entry.add_person(person, role)
@@ -90,7 +71,7 @@ class NBIBParser(BaseParser):
 
         # Read Other Fields
         def add_field(code, bibtex_field, delimiter=", "):
-            values = ris_dict.pop(code, [])
+            values = nbib_dict.pop(code, [])
             for value in values:
                 if bibtex_field in entry.fields:
                     entry.fields[bibtex_field] += f"{delimiter}{value}"
@@ -140,25 +121,25 @@ class NBIBParser(BaseParser):
             add_field("Y1", "year")
 
         # Read ISBN or ISSN
-        serial_numbers = ris_dict.pop("SN", [])
+        serial_numbers = nbib_dict.pop("SN", [])
         for serial_number in serial_numbers:
             sn_digits = re.sub(r"\D","", serial_number)
             sn_field = "issn" if len(sn_digits) == 8 else "isbn"
             entry.fields[sn_field] = serial_number
 
-        entry_key = ris_dict.pop("ID", [None])
+        entry_key = nbib_dict.pop("ID", [None])
         entry_key = entry_key[0]
 
         # Check if DA field could be a month
-        dates = ris_dict.get("DA", [])
+        dates = nbib_dict.get("DA", [])
         for date in dates:
             digital_month = date.isdigit() and (1 <= int(date) <= 12)
             text_month = date[:3].lower() in ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
             if digital_month or text_month:
                 entry.fields["month"] = date
-                ris_dict.pop("DA")
+                nbib_dict.pop("DA")
                 
-        end_pages = ris_dict.pop("EP", [])
+        end_pages = nbib_dict.pop("EP", [])
         for end_page in end_pages:
             if "pages" in entry.fields:
                 entry.fields["pages"] += f"--{end_page}"
@@ -166,8 +147,8 @@ class NBIBParser(BaseParser):
                 entry.fields["pages"] = end_page
 
         # Add the remaining fields in the notes
-        ris_dict.pop("ER", None)
-        for code, values in ris_dict.items():
+        nbib_dict.pop("ER", None)
+        for code, values in nbib_dict.items():
             entry.fields[code] = ", ".join(values)
 
         

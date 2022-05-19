@@ -2,13 +2,13 @@ from unittest import TestCase
 from itertools import zip_longest
 from pybtex.database import BibliographyData, Entry, Person
 from pybtex.utils import OrderedCaseInsensitiveDict
-from pybtexris import RISParser
+from pybtexnbib import NBIBParser
 from pathlib import Path
 
 files_dir = Path(__file__).parent / "files"
 
 
-class _TestParser(RISParser):
+class _TestParser(NBIBParser):
     def __init__(self, *args, **kwargs):
         super(_TestParser, self).__init__(*args, **kwargs)
         self.errors = []
@@ -17,7 +17,7 @@ class _TestParser(RISParser):
         self.errors.append(error)
 
 
-shannon1948 = BibliographyData(
+marcelis = BibliographyData(
     entries=OrderedCaseInsensitiveDict(
         [
             (
@@ -89,8 +89,8 @@ class TestSingleJournal(ParserTest, TestCase):
         EP  - 423
         VL  - 27
         ER  - 
-    """  # taken from https://en.wikipedia.org/wiki/RIS_(file_format)
-    correct_result = shannon1948
+    """  
+    correct_result = marcelis
 
 
 class TestSingleBookChapter(ParserTest, TestCase):
@@ -107,7 +107,7 @@ class TestSingleBookChapter(ParserTest, TestCase):
         SP  - 291
         EP  - 308
         ER  - 
-    """  # taken from https://en.wikipedia.org/wiki/RIS_(file_format)
+    """  
     correct_result = BibliographyData(
         entries=OrderedCaseInsensitiveDict(
             [
@@ -147,7 +147,7 @@ class TestBlog(ParserTest, TestCase):
         TI  - Fantastic blog post
         UR  - https://blog.example.com
         ER  - 
-    """  # taken from https://en.wikipedia.org/wiki/RIS_(file_format)
+    """  
     correct_result = BibliographyData(
         entries=OrderedCaseInsensitiveDict(
             [
@@ -221,7 +221,7 @@ class TestMultiEntry(ParserTest, TestCase):
         EP  - 265
         Y1  - 1937
         ER  - 
-    """  # taken from https://en.wikipedia.org/wiki/RIS_(file_format)
+    """  
     correct_result = BibliographyData(
         entries=OrderedCaseInsensitiveDict(
             [
@@ -300,7 +300,7 @@ class TestMultiAuthor(ParserTest, TestCase):
         DO  - 10.1038/s41467-020-18314-x
         ID  - Seemann2020
         ER  - 
-    """  # taken from https://en.wikipedia.org/wiki/RIS_(file_format)
+    """  
     correct_result = BibliographyData(
         entries=OrderedCaseInsensitiveDict(
             [
@@ -422,6 +422,6 @@ class TestBook(ParserTest, TestCase):
 
 def test_parse_file():
     parser = _TestParser()
-    parser.parse_file(files_dir / "Shannon1948.ris")
+    parser.parse_file(files_dir / "marcelis-20301770.nbib")
     result = parser.data
-    assert result == shannon1948
+    assert result == marcelis

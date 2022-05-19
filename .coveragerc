@@ -1,5 +1,5 @@
 [run]
-source = pybtexris
+source = pybtexnbib
 
 [report]
 precision = 2
