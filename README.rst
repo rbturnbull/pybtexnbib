@@ -71,13 +71,13 @@ Multiple NBIB files can be formatted in a similar way:
         bib_format="nbib",
     )
 
-By giving ``suffix`` as the argument to ``bib_format``, 
+By giving ``"suffix"`` as the argument to ``bib_format``, 
 NBIB files can be combined with bibliography files of other formats (such as BibTeX or RIS):
 
 .. code-block:: python
 
     from pybtex import format_from_files
-    result = format_from_files(
+    bibliography_string = format_from_files(
         ["path/to/file1.nbib", "path/to/file2.bib", "path/to/file3.ris"],
         style="plain", 
         output_backend="plaintext",
