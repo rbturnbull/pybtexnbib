@@ -44,9 +44,54 @@ To format an NBIB file into a human-readable bibliography, use the pybtex-format
 
 For more information, see `the documentation for pybtex <https://docs.pybtex.org/cmdline.html>`_.
 
+Programmatic usage
+==================
+
+NBIB files can be formatted into a human-readable bibliography as a string as follows:
+
+.. code-block:: python
+
+    from pybtex import format_from_file
+    bibliography_string = format_from_file(
+        "path/to/file.nbib", 
+        style="plain", 
+        output_backend="plaintext",
+        bib_format="nbib",
+    )
+
+Multiple NBIB files can be formatted in a similar way:
+
+.. code-block:: python
+
+    from pybtex import format_from_files
+    bibliography_string = format_from_files(
+        ["path/to/file1.nbib", "path/to/file2.nbib"],
+        style="plain", 
+        output_backend="plaintext",
+        bib_format="nbib",
+    )
+
+By giving ``suffix`` as the argument to ``bib_format``, 
+NBIB files can be combined with bibliography files of other formats (such as BibTeX or RIS):
+
+.. code-block:: python
+
+    from pybtex import format_from_files
+    result = format_from_files(
+        ["path/to/file1.nbib", "path/to/file2.bib", "path/to/file3.ris"],
+        style="plain", 
+        output_backend="plaintext",
+        bib_format="suffix",
+    )
+
+The RIS parser comes from `pybtexris <https://github.com/rbturnbull/pybtexris>`_. 
+Parsers for the files for other formats need to be registered on the ``pybtex.database.input.suffixes``
+entry point as discussed pybtex `plugin documentation <https://docs.pybtex.org/api/plugins.html>`_.
+
+For more information on programmatic use of pybtex, 
+see `the documentation of the Python API of pybtex <https://docs.pybtex.org/api/index.html>`_.
+
 Credit
 ==================
 
 Robert Turnbull (Melbourne Data Analytics Platform, University of Melbourne)
-
-I have also created `pybtexris <https://github.com/rbturnbull/pybtexris>`_ to handle RIS files.

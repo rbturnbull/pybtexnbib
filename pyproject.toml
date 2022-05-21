@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pybtexnbib"
-version = "0.1.0"
+version = "0.1.1"
 description = "A pybtex plugin for NBIB/Medline/PubMed files"
 authors = ["Robert Turnbull <robert.turnbull@unimelb.edu.au>"]
 license = "Apache-2.0"
@@ -11,6 +11,7 @@ repository = "https://github.com/rbturnbull/pybtexnbib"
 [tool.poetry.dependencies]
 python = "^3.7.1"
 pybtex = "^0.24.0"
+pybtexris = "^0.1.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.1.2"
