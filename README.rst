@@ -20,7 +20,7 @@ pybtexnbib
 
 .. end-badges
 
-A pybtex plugin for NBIB/Medline/PubMed files. For information on the file format, see the `documentation<https://www.nlm.nih.gov/bsd/mms/medlineelements.html>`_ on the National Library of Medicine website.
+A pybtex plugin for NBIB/Medline/PubMed files. For information on the file format, see the documentation at the `National Library of Medicine <https://www.nlm.nih.gov/bsd/mms/medlineelements.html>`_.
 
 Installation
 ============
