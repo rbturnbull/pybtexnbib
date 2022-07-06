@@ -6,6 +6,7 @@ from pybtex.database.input import BaseParser
 from pybtex.database import Entry, Person
 import csv
 from warnings import warn
+import unicodedata
 
 data_dir = Path(__file__).parent/"data"
 
@@ -153,6 +154,9 @@ class NBIBParser(BaseParser):
 
             if "year" in entry.fields:
                 entry_key += entry.fields["year"]
+
+        # ensure that the entry key is only in ASCII encoding
+        entry_key = unicodedata.normalize('NFKD', entry_key).encode('ASCII', 'ignore').decode("ascii")
 
         return entry_key,entry
 

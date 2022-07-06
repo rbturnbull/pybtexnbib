@@ -174,15 +174,20 @@ class GuidelineTest(ParserTest, TestCase):
     DP  - 2020 
     """
     correct_result = BibliographyData(
-  entries=OrderedCaseInsensitiveDict([
-    ('Unknown2020', Entry('misc',
-      fields=[
-        ('type', 'Guideline'), 
-        ('date', '2020'), 
-        ('year', '2020')],
-      persons=OrderedCaseInsensitiveDict([])))]),
-
-  preamble=[])
+        entries=OrderedCaseInsensitiveDict(
+            [
+                (
+                    'Unknown2020',
+                    Entry(
+                        'misc',
+                        fields=[('type', 'Guideline'), ('date', '2020'), ('year', '2020')],
+                        persons=OrderedCaseInsensitiveDict([]),
+                    ),
+                )
+            ]
+        ),
+        preamble=[],
+    )
 
 
 class TestMarcelis(ParserTest, TestCase):
@@ -545,6 +550,81 @@ class TestSingleBookChapter(ParserTest, TestCase):
         AID - NBK7050 [bookaccession]
     """
     correct_result = marcelis
+
+
+class TestUnicodeAuthor(ParserTest, TestCase):
+    input_string = """
+        PMID- 31029649
+        OWN - NLM
+        STAT- MEDLINE
+        DCOM- 20200210
+        LR  - 20200210
+        IS  - 1876-861X (Electronic)
+        IS  - 1876-861X (Linking)
+        VI  - 13
+        IP  - 5
+        DP  - 2019 Sep-Oct
+        TI  - Advanced atherosclerosis imaging by CT: Radiomics, machine learning and deep
+            learning.
+        PG  - 274-280
+        LID - S1934-5925(18)30615-4 [pii]
+        LID - 10.1016/j.jcct.2019.04.007 [doi]
+        CI  - Copyright © 2019 Society of Cardiovascular Computed Tomography. Published by
+            Elsevier Inc. All rights reserved.
+        FAU - Kolossváry, Márton
+        AU  - Kolossváry M
+        AD  - Cardiovascular Imaging Research Group, Heart and Vascular Center, Semmelweis
+            University, Budapest, Hungary. Electronic address: marton.kolossvary@cirg.hu.
+        FAU - De Cecco, Carlo N
+        AU  - De Cecco CN
+        AD  - Division of Cardiothoracic Imaging, Department of Radiology and Imaging Science,
+            Emory University, Atlanta, GA, USA.
+        FAU - Feuchtner, Gudrun
+        AU  - Feuchtner G
+        AD  - Department of Radiology, Innsbruck Medical University, Innsbruck, Austria.
+        FAU - Maurovich-Horvat, Pál
+        AU  - Maurovich-Horvat P
+        AD  - Cardiovascular Imaging Research Group, Heart and Vascular Center, Semmelweis
+            University, Budapest, Hungary.
+        LA  - eng
+        PT  - Journal Article
+        PT  - Review
+        DEP - 20190421
+        PL  - United States
+        TA  - J Cardiovasc Comput Tomogr
+        JT  - Journal of cardiovascular computed tomography
+        JID - 101308347
+    """
+    correct_result = BibliographyData(
+  entries=OrderedCaseInsensitiveDict([
+    ('Kolossvary2019', Entry('article',
+      fields=[
+        ('type', 'Journal Article; Review'), 
+        ('title', 'Advanced atherosclerosis imaging by CT: Radiomics, machine learning and deeplearning.'), 
+        ('journal', 'Journal of cardiovascular computed tomography'), 
+        ('date', '2019 Sep-Oct'), 
+        ('volume', '13'), 
+        ('pages', '274-280'), 
+        ('issn', '1876-861X (Electronic); 1876-861X (Linking)'), 
+        ('year', '2019'), 
+        ('PMID', '31029649'), 
+        ('OWN', 'NLM'), 
+        (
+        'STAT', 'MEDLINE'), 
+        ('DCOM', '20200210'), 
+        ('LR', '20200210'), 
+        ('IP', '5'), 
+        ('LID', 'S1934-5925(18)30615-4 [pii]; 10.1016/j.jcct.2019.04.007 [doi]'), 
+        ('CI', 'Copyright © 2019 Society of Cardiovascular Computed Tomography. Published byElsevier Inc. All rights reserved.'), 
+        ('AU', 'Kolossváry M; De Cecco CN; Feuchtner G; Maurovich-Horvat P'), 
+        ('AD', 'Cardiovascular Imaging Research Group, Heart and Vascular Center, SemmelweisUniversity, Budapest, Hungary. Electronic address: marton.kolossvary@cirg.hu.; Division of Cardiothoracic Imaging, Department of Radiology and Imaging Science,Emory University, Atlanta, GA, USA.; Department of Radiology, Innsbruck Medical University, Innsbruck, Austria.; Cardiovascular Imaging Research Group, Heart and Vascular Center, SemmelweisUniversity, Budapest, Hungary.'), 
+        ('LA', 'eng'), 
+        ('DEP', '20190421'), 
+        ('PL', 'United States'), ('TA', 'J Cardiovasc Comput Tomogr'), 
+        ('JID', '101308347')],
+      persons=OrderedCaseInsensitiveDict([('author', [Person('Kolossváry, Márton'), Person('De Cecco, Carlo N'), Person('Feuchtner, Gudrun'), Person('Maurovich-Horvat, Pál')])])))]),
+
+  preamble=[])
 
 
 def test_parse_file():
