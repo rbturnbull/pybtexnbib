@@ -6,7 +6,8 @@ from pybtex.database.input import BaseParser
 from pybtex.database import Entry, Person
 import csv
 from warnings import warn
-import unicodedata
+from pybtexris.parsers import clean_entry_key, get_entry_key
+
 
 data_dir = Path(__file__).parent/"data"
 
@@ -135,28 +136,11 @@ class NBIBParser(BaseParser):
             else:
                 nbib_dict["AID"].append(value)
 
-        # Add the remaining fields with the RIS code as the field name
+        # Add the remaining fields with the code as the field name
         for code, values in nbib_dict.items():
             entry.fields[code] = "; ".join(values)
 
-        # Create an entry key if not found
-        entry_key = ""
-        if not entry_key:
-            people = [x[0] for x in entry.persons.values()]
-            if people:
-                first_author = people[0]
-                entry_key = "-".join(first_author.last_names).replace(" ", ".")
-            elif "title" in entry.fields:
-                TRUNCATE_TITLE = 20
-                entry_key = entry.fields["title"].replace(" ", ".")[:TRUNCATE_TITLE]
-            else:
-                entry_key = "Unknown"
-
-            if "year" in entry.fields:
-                entry_key += entry.fields["year"]
-
-        # ensure that the entry key is only in ASCII encoding
-        entry_key = unicodedata.normalize('NFKD', entry_key).encode('ASCII', 'ignore').decode("ascii")
+        entry_key = get_entry_key(entry)        
 
         return entry_key,entry
 

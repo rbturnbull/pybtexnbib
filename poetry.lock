@@ -190,7 +190,7 @@ test = ["pytest"]
 
 [[package]]
 name = "pybtexris"
-version = "0.1.1"
+version = "0.1.2"
 description = "A pybtex plugin for working with RIS files."
 category = "main"
 optional = false
@@ -287,7 +287,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7.1"
-content-hash = "5062ed5e2aee26035389740bb0def836d62a9475aefb782b88d6bebf152441b5"
+content-hash = "dbd747faf1067625afe76d8a45b2c07a17de02341072de0820fac4657dfe27b2"
 
 [metadata.files]
 atomicwrites = [
@@ -415,8 +415,8 @@ pybtex = [
     {file = "pybtex-0.24.0.tar.gz", hash = "sha256:818eae35b61733e5c007c3fcd2cfb75ed1bc8b4173c1f70b56cc4c0802d34755"},
 ]
 pybtexris = [
-    {file = "pybtexris-0.1.1-py3-none-any.whl", hash = "sha256:d6e7d98d37d558ad897b8ec6966aad4affc0b289824817d8e8f571b9f8168d72"},
-    {file = "pybtexris-0.1.1.tar.gz", hash = "sha256:41005c97f51a91298ab9cd8548e9788aca10a0543e418d7a57688d75824a1d3d"},
+    {file = "pybtexris-0.1.2-py3-none-any.whl", hash = "sha256:0b0a5f3b9af3502f858bfed95bbffc776ce377159a13beb61b0b696c6739ed14"},
+    {file = "pybtexris-0.1.2.tar.gz", hash = "sha256:84ce8d59e2934d8c5416fe2cc6d57c2fbf3d8ab0c330dcb2103b687491158ebd"},
 ]
 pyparsing = [
     {file = "pyparsing-3.0.9-py3-none-any.whl", hash = "sha256:5026bae9a10eeaefb61dab2f09052b9f4307d44aee4eda64b309723d8d206bbc"},
